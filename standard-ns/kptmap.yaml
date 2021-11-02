@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: # kpt-merge: example/kptfile.kpt.dev
+  name: kptfile.kpt.dev
+  namespace: standard-ns
+data:
+  name: standard-ns
