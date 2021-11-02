@@ -1,0 +1,33 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: standard-ns
+  annotations:
+    blueprints.cloud.google.com/title: 'Standard Namespace'
+    cft.dev/base-version: '1'
+    cft.dev/package-version: '1'
+upstream:
+  type: git
+  git:
+    repo: https://github.com/platkrm/demo-blueprints
+    directory: /basens
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/platkrm/demo-blueprints
+    directory: /basens
+    ref: main
+    commit: 1b64f99da2965a6e6fd1ec134c16441f6028bcd2
+info:
+  description: A standard namespace blueprint
+  keywords:
+  - tenant
+pipeline:
+  mutators:
+  - image: gcr.io/cad-demo-sdk/set-namespace:latest
+  validators:
+  - image: gcr.io/kpt-fn/kubeval:v0.1
+    configMap:
+      ignore_missing_schemas: 'true'
